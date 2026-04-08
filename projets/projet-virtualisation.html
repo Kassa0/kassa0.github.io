@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtualisation Proxmox & Hyper-V — Hugo PROTTEAU</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .projet-hero {
+      padding: 8rem 0 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-code); font-size: .78rem;
+      color: var(--muted); text-decoration: none;
+      margin-bottom: 1.75rem; transition: color .2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .projet-meta {
+      display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.25rem;
+    }
+    .projet-meta-item {
+      font-family: var(--font-code); font-size: .75rem;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+    }
+    .projet-meta-item strong { color: var(--text); font-weight: 500; }
+
+    /* ── Sections ── */
+    .projet-body { padding: 4rem 0; }
+    .ps {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ps:last-child { border-bottom: none; }
+    .ps-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+    }
+    .ps-num {
+      font-family: var(--font-code); font-size: .7rem;
+      color: var(--accent); background: rgba(61,220,132,.1);
+      border: 1px solid rgba(61,220,132,.25);
+      padding: .3rem .75rem; border-radius: 4px;
+      letter-spacing: .1em; white-space: nowrap;
+    }
+    .ps-title { font-size: 1.25rem; font-weight: 700; }
+
+    /* Objectif */
+    .obj-text {
+      color: var(--muted); font-size: .95rem; line-height: 1.85;
+      max-width: 720px;
+    }
+
+    /* Déroulement — timeline */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-step {
+      display: grid; grid-template-columns: 2.25rem 1fr;
+      gap: 1.25rem; position: relative;
+    }
+    .tl-step:not(:last-child)::before {
+      content: '';
+      position: absolute; left: 1.0625rem; top: 2.25rem; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .tl-dot {
+      width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      background: var(--surface2); border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-code); font-size: .7rem;
+      color: var(--accent); flex-shrink: 0; z-index: 1; margin-top: .1rem;
+    }
+    .tl-body { padding-bottom: 2rem; }
+    .tl-body p {
+      color: var(--muted); font-size: .9rem; line-height: 1.8;
+    }
+
+    /* Conclusion */
+    .conclu-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+    .conclu-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.4rem;
+    }
+    .conclu-card .cc-icon { font-size: 1.5rem; margin-bottom: .6rem; }
+    .conclu-card h4 {
+      font-size: .78rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: .12em; margin-bottom: .5rem;
+    }
+    .conclu-card p { color: var(--muted); font-size: .87rem; line-height: 1.65; }
+    .conclu-bilan {
+      background: rgba(61,220,132,.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 1.25rem 1.75rem;
+    }
+    .conclu-bilan p {
+      color: var(--text); font-size: .93rem; line-height: 1.85; font-style: italic;
+    }
+
+    @media (max-width: 700px) {
+      .conclu-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="../index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
+    <ul class="nav-links">
+      <li><a href="../presentation.html">Présentation</a></li>
+      <li><a href="../bts-sio-sisr.html">BTS SIO SISR</a></li>
+      <li><a href="../veille.html">Veille technologique</a></li>
+      <li class="nav-has-dropdown">
+        <button onclick="window.location='../mes-projets.html'">Mes projets <span class="nav-arrow">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="../projets-patrimoine.html"><span class="dd-icon">🖥️</span><span><span class="dd-label">Gérer le patrimoine informatique</span><span class="dd-sub">Inventaire, maintenance, gestion du parc</span></span></a>
+          <a href="../projets-incidents.html"><span class="dd-icon">🔧</span><span><span class="dd-label">Répondre aux incidents et aux demandes</span><span class="dd-sub">Assistance, support, évolutions</span></span></a>
+          <a href="../projets-presence.html"><span class="dd-icon">🌐</span><span><span class="dd-label">Développer la présence en ligne</span><span class="dd-sub">Web, services en ligne, communication</span></span></a>
+          <a href="../projets-mode-projet.html"><span class="dd-icon">📋</span><span><span class="dd-label">Travailler en mode projet</span><span class="dd-sub">Gestion de projet, planification, livrables</span></span></a>
+          <a href="../projets-service.html"><span class="dd-icon">⚙️</span><span><span class="dd-label">Mettre à disposition un service informatique</span><span class="dd-sub">Déploiement, infrastructure, services</span></span></a>
+          <a href="../projets-dev-pro.html"><span class="dd-icon">📈</span><span><span class="dd-label">Organiser son développement professionnel</span><span class="dd-sub">Formation, veille, certifications</span></span></a>
+        </div>
+      </li>
+      <li><a href="../e6.html">Épreuve E6</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <!-- HERO -->
+  <div class="projet-hero">
+    <div class="container">
+      <a href="../projets-patrimoine.html" class="back-link">← Retour</a>
+      <div class="section-label">// Projet</div>
+      <h1 class="section-title">⚙️ Virtualisation Proxmox & Hyper-V</h1>
+      <div class="divider"></div>
+      <div class="projet-meta">
+        <div class="projet-meta-item">🏢 Contexte : <strong>Formation (BTS SIO SISR) & Personnel</strong></div>
+        <div class="projet-meta-item">📅 Période : <strong>2023 — 2025</strong></div>
+      </div>
+      <div class="tags" style="margin-top:1rem"><span class="tag">Proxmox VE</span><span class="tag">Hyper-V</span><span class="tag">VM</span><span class="tag">Cluster</span><span class="tag">Haute disponibilité</span><span class="tag">Snapshots</span></div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="projet-body">
+    <div class="container">
+
+      <!-- 01 Objectif -->
+      <div class="ps fade-in">
+        <div class="ps-header">
+          <span class="ps-num">01</span>
+          <h2 class="ps-title">Objectif du projet</h2>
+        </div>
+        <p class="obj-text">Dans le cadre de mes cours de BTS SIO SISR et en réalisation personnelle, j'ai réalisé des travaux pratiques sur la virtualisation de serveurs. L'objectif était de comprendre et maîtriser la création et la gestion d'infrastructures virtualisées avec deux hyperviseurs différents : Proxmox VE et Hyper-V. L'accent principal a été mis sur Proxmox, qui offre une interface web complète permettant d'aborder des notions avancées comme le clustering et la haute disponibilité.</p>
+      </div>
+
+      <!-- 02 Déroulement -->
+      <div class="ps fade-in">
+        <div class="ps-header">
+          <span class="ps-num">02</span>
+          <h2 class="ps-title">Déroulement</h2>
+        </div>
+        <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-dot">1</div>
+          <div class="tl-body"><p>Installation de Proxmox VE et prise en main de l'interface web d'administration.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">2</div>
+          <div class="tl-body"><p>Création et configuration de machines virtuelles : allocation CPU, RAM, stockage, choix de l'ISO, passthrough de disque complet.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">3</div>
+          <div class="tl-body"><p>Configuration du réseau virtuel sur Proxmox : création de bridges, association aux VLANs pour isoler les VMs.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">4</div>
+          <div class="tl-body"><p>Réalisation de snapshots et sauvegardes de VMs : planification, restauration et vérification de l'intégrité.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">5</div>
+          <div class="tl-body"><p>Gestion des utilisateurs et des droits d'accès sur Proxmox.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">6</div>
+          <div class="tl-body"><p>Activation du rôle Hyper-V sur Windows Server et création de VMs depuis Hyper-V Manager.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">7</div>
+          <div class="tl-body"><p>Mise en place d'un cluster Hyper-V entre plusieurs nœuds : configuration d'un AD Hyper-V, test de haute disponibilité avec bascule automatique en cas de panne d'un nœud.</p></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- 03 Conclusion -->
+      <div class="ps fade-in">
+        <div class="ps-header">
+          <span class="ps-num">03</span>
+          <h2 class="ps-title">Conclusion</h2>
+        </div>
+        <div class="conclu-grid">
+          <div class="conclu-card">
+            <div class="cc-icon">🏁</div>
+            <h4>Résultat obtenu</h4>
+            <p>Maîtrise solide de Proxmox VE, de la création de VMs jusqu'au clustering et à la haute disponibilité.</p>
+          </div>
+          <div class="conclu-card">
+            <div class="cc-icon">⚠️</div>
+            <h4>Difficultés rencontrées</h4>
+            <p>La configuration du cluster Hyper-V et de la haute disponibilité a été la partie la plus complexe, nécessitant une attention particulière à l'ordre des opérations.</p>
+          </div>
+          <div class="conclu-card">
+            <div class="cc-icon">📈</div>
+            <h4>Compétences acquises</h4>
+            <p>Compréhension des différences entre hyperviseur open source (Proxmox) et rôle intégré Windows (Hyper-V), maîtrise des concepts de clustering et haute disponibilité.</p>
+          </div>
+        </div>
+        <div class="conclu-bilan">
+          <p>Ces expériences m'ont donné une maîtrise concrète de la virtualisation, du niveau débutant jusqu'aux notions avancées de clustering. La virtualisation étant au cœur de toute infrastructure professionnelle, ces compétences sont directement applicables en entreprise.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 Hugo PROTTEAU · BTS SIO SISR</p>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>

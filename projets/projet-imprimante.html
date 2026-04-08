@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Déploiement d'imprimante réseau — Hugo PROTTEAU</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .projet-hero {
+      padding: 8rem 0 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-code); font-size: .78rem;
+      color: var(--muted); text-decoration: none;
+      margin-bottom: 1.75rem; transition: color .2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .projet-meta {
+      display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.25rem;
+    }
+    .projet-meta-item {
+      font-family: var(--font-code); font-size: .75rem;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+    }
+    .projet-meta-item strong { color: var(--text); font-weight: 500; }
+
+    /* ── Sections ── */
+    .projet-body { padding: 4rem 0; }
+    .ps {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ps:last-child { border-bottom: none; }
+    .ps-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+    }
+    .ps-num {
+      font-family: var(--font-code); font-size: .7rem;
+      color: var(--accent); background: rgba(61,220,132,.1);
+      border: 1px solid rgba(61,220,132,.25);
+      padding: .3rem .75rem; border-radius: 4px;
+      letter-spacing: .1em; white-space: nowrap;
+    }
+    .ps-title { font-size: 1.25rem; font-weight: 700; }
+
+    /* Objectif */
+    .obj-text {
+      color: var(--muted); font-size: .95rem; line-height: 1.85;
+      max-width: 720px;
+    }
+
+    /* Déroulement — timeline */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-step {
+      display: grid; grid-template-columns: 2.25rem 1fr;
+      gap: 1.25rem; position: relative;
+    }
+    .tl-step:not(:last-child)::before {
+      content: '';
+      position: absolute; left: 1.0625rem; top: 2.25rem; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .tl-dot {
+      width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      background: var(--surface2); border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-code); font-size: .7rem;
+      color: var(--accent); flex-shrink: 0; z-index: 1; margin-top: .1rem;
+    }
+    .tl-body { padding-bottom: 2rem; }
+    .tl-body p {
+      color: var(--muted); font-size: .9rem; line-height: 1.8;
+    }
+
+    /* Conclusion */
+    .conclu-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+    .conclu-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.4rem;
+    }
+    .conclu-card .cc-icon { font-size: 1.5rem; margin-bottom: .6rem; }
+    .conclu-card h4 {
+      font-size: .78rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: .12em; margin-bottom: .5rem;
+    }
+    .conclu-card p { color: var(--muted); font-size: .87rem; line-height: 1.65; }
+    .conclu-bilan {
+      background: rgba(61,220,132,.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 1.25rem 1.75rem;
+    }
+    .conclu-bilan p {
+      color: var(--text); font-size: .93rem; line-height: 1.85; font-style: italic;
+    }
+
+    @media (max-width: 700px) {
+      .conclu-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="../index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
+    <ul class="nav-links">
+      <li><a href="../presentation.html">Présentation</a></li>
+      <li><a href="../bts-sio-sisr.html">BTS SIO SISR</a></li>
+      <li><a href="../veille.html">Veille technologique</a></li>
+      <li class="nav-has-dropdown">
+        <button onclick="window.location='../mes-projets.html'">Mes projets <span class="nav-arrow">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="../projets-patrimoine.html"><span class="dd-icon">🖥️</span><span><span class="dd-label">Gérer le patrimoine informatique</span><span class="dd-sub">Inventaire, maintenance, gestion du parc</span></span></a>
+          <a href="../projets-incidents.html"><span class="dd-icon">🔧</span><span><span class="dd-label">Répondre aux incidents et aux demandes</span><span class="dd-sub">Assistance, support, évolutions</span></span></a>
+          <a href="../projets-presence.html"><span class="dd-icon">🌐</span><span><span class="dd-label">Développer la présence en ligne</span><span class="dd-sub">Web, services en ligne, communication</span></span></a>
+          <a href="../projets-mode-projet.html"><span class="dd-icon">📋</span><span><span class="dd-label">Travailler en mode projet</span><span class="dd-sub">Gestion de projet, planification, livrables</span></span></a>
+          <a href="../projets-service.html"><span class="dd-icon">⚙️</span><span><span class="dd-label">Mettre à disposition un service informatique</span><span class="dd-sub">Déploiement, infrastructure, services</span></span></a>
+          <a href="../projets-dev-pro.html"><span class="dd-icon">📈</span><span><span class="dd-label">Organiser son développement professionnel</span><span class="dd-sub">Formation, veille, certifications</span></span></a>
+        </div>
+      </li>
+      <li><a href="../e6.html">Épreuve E6</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <!-- HERO -->
+  <div class="projet-hero">
+    <div class="container">
+      <a href="../projets-service.html" class="back-link">← Retour</a>
+      <div class="section-label">// Projet</div>
+      <h1 class="section-title">🖨️ Déploiement d'imprimante réseau</h1>
+      <div class="divider"></div>
+      <div class="projet-meta">
+        <div class="projet-meta-item">🏢 Contexte : <strong>Alternance (collectivité territoriale, 1ère année)</strong></div>
+        <div class="projet-meta-item">📅 Période : <strong>2023 — 2024</strong></div>
+      </div>
+      <div class="tags" style="margin-top:1rem"><span class="tag">IP fixe</span><span class="tag">Pilote d'impression</span><span class="tag">Réseau</span><span class="tag">Plan d'adressage</span></div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="projet-body">
+    <div class="container">
+
+      <!-- 01 Objectif -->
+      <div class="ps fade-in">
+        <div class="ps-header">
+          <span class="ps-num">01</span>
+          <h2 class="ps-title">Objectif du projet</h2>
+        </div>
+        <p class="obj-text">Dans le cadre de mon alternance au sein de la collectivité territoriale, j'ai été chargé du déploiement d'une imprimante réseau. L'objectif était de rendre l'imprimante accessible à plusieurs postes utilisateurs en lui attribuant une adresse IP fixe cohérente avec le plan d'adressage du réseau de la collectivité.</p>
+      </div>
+
+      <!-- 02 Déroulement -->
+      <div class="ps fade-in">
+        <div class="ps-header">
+          <span class="ps-num">02</span>
+          <h2 class="ps-title">Déroulement</h2>
+        </div>
+        <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-dot">1</div>
+          <div class="tl-body"><p>Connexion à l'interface d'administration de l'imprimante (interface web constructeur) ou directement sur le copieur pour configurer une adresse IP fixe cohérente avec le plan d'adressage du réseau.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">2</div>
+          <div class="tl-body"><p>Vérification de la joignabilité de l'imprimante depuis le réseau (test ping).</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">3</div>
+          <div class="tl-body"><p>Installation du pilote d'impression sur les postes utilisateurs concernés et ajout de l'imprimante via son adresse IP.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">4</div>
+          <div class="tl-body"><p>Test d'impression depuis chaque poste pour valider le bon fonctionnement.</p></div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">5</div>
+          <div class="tl-body"><p>Information des utilisateurs sur l'utilisation de la nouvelle imprimante.</p></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- 03 Conclusion -->
+      <div class="ps fade-in">
+        <div class="ps-header">
+          <span class="ps-num">03</span>
+          <h2 class="ps-title">Conclusion</h2>
+        </div>
+        <div class="conclu-grid">
+          <div class="conclu-card">
+            <div class="cc-icon">🏁</div>
+            <h4>Résultat obtenu</h4>
+            <p>Déploiement réalisé avec succès, imprimante accessible depuis tous les postes concernés.</p>
+          </div>
+          <div class="conclu-card">
+            <div class="cc-icon">⚠️</div>
+            <h4>Difficultés rencontrées</h4>
+            <p>S'assurer de la cohérence de l'adresse IP choisie avec le plan d'adressage existant de la collectivité.</p>
+          </div>
+          <div class="conclu-card">
+            <div class="cc-icon">📈</div>
+            <h4>Compétences acquises</h4>
+            <p>Gestion des adresses IP en environnement réel, procédure de déploiement d'un périphérique réseau pour les utilisateurs finaux.</p>
+          </div>
+        </div>
+        <div class="conclu-bilan">
+          <p>Cette intervention m'a permis de mettre en pratique la gestion des adresses IP dans un environnement réel et de comprendre les étapes nécessaires pour rendre un périphérique réseau opérationnel pour les utilisateurs finaux.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 Hugo PROTTEAU · BTS SIO SISR</p>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>
