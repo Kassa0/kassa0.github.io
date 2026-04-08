@@ -1,504 +1,734 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTS SIO SISR — Hugo PROTTEAU</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTS SIO SISR — Hugo PROTTEAU</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── Hero BTS ── */
+      .bts-hero {
+        padding: 8rem 0 5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .bts-hero-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .bts-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--font-code);
+        font-size: 0.72rem;
+        color: var(--accent);
+        background: rgba(61, 220, 132, 0.08);
+        border: 1px solid rgba(61, 220, 132, 0.2);
+        padding: 0.35rem 0.9rem;
+        border-radius: 20px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+      }
+      .bts-hero h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+      }
+      .bts-hero h1 span {
+        color: var(--accent);
+      }
+      .bts-hero p {
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
 
-    /* ── Hero BTS ── */
-    .bts-hero {
-      padding: 8rem 0 5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .bts-hero-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center;
-    }
-    .bts-badge {
-      display: inline-flex; align-items: center; gap: .6rem;
-      font-family: var(--font-code); font-size: .72rem;
-      color: var(--accent); background: rgba(61,220,132,.08);
-      border: 1px solid rgba(61,220,132,.2);
-      padding: .35rem .9rem; border-radius: 20px;
-      letter-spacing: .1em; text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-    .bts-hero h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800; line-height: 1.1; margin-bottom: 1rem;
-    }
-    .bts-hero h1 span { color: var(--accent); }
-    .bts-hero p {
-      color: var(--muted); line-height: 1.8; font-size: .95rem;
-    }
+      /* Carte stat */
+      .bts-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+      }
+      .stat-card .stat-val {
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: var(--accent);
+        font-family: var(--font-code);
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+      .stat-card .stat-label {
+        font-size: 0.8rem;
+        color: var(--muted);
+        line-height: 1.4;
+      }
 
-    /* Carte stat */
-    .bts-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .stat-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.25rem 1.5rem;
-    }
-    .stat-card .stat-val {
-      font-size: 1.9rem; font-weight: 800; color: var(--accent);
-      font-family: var(--font-code); line-height: 1;
-      margin-bottom: .3rem;
-    }
-    .stat-card .stat-label {
-      font-size: .8rem; color: var(--muted); line-height: 1.4;
-    }
+      /* ── Sections ── */
+      .page-section {
+        padding: 5rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .page-section:last-child {
+        border-bottom: none;
+      }
 
-    /* ── Sections ── */
-    .page-section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
-    .page-section:last-child { border-bottom: none; }
+      /* ── Options ── */
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+      }
+      .option-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .option-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+      .option-card.active {
+        border-color: var(--accent);
+      }
 
-    /* ── Options ── */
-    .options-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.5rem; margin-top: 2.5rem;
-    }
-    .option-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden;
-      transition: border-color .2s, transform .2s;
-    }
-    .option-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .option-card.active { border-color: var(--accent); }
+      .option-header {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .option-icon {
+        font-size: 2rem;
+      }
+      .option-header h3 {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .option-header .option-code {
+        font-family: var(--font-code);
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+      }
+      .option-body {
+        padding: 1.25rem 1.5rem;
+      }
+      .option-body p {
+        color: var(--muted);
+        font-size: 0.87rem;
+        line-height: 1.7;
+      }
+      .option-card.active .option-header {
+        background: rgba(61, 220, 132, 0.05);
+      }
+      .active-badge {
+        margin-left: auto;
+        font-family: var(--font-code);
+        font-size: 0.68rem;
+        color: var(--accent);
+        background: rgba(61, 220, 132, 0.1);
+        border: 1px solid rgba(61, 220, 132, 0.25);
+        padding: 0.2rem 0.6rem;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
 
-    .option-header {
-      padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .option-icon { font-size: 2rem; }
-    .option-header h3 { font-size: 1rem; font-weight: 700; }
-    .option-header .option-code {
-      font-family: var(--font-code); font-size: .7rem;
-      color: var(--muted); margin-top: .15rem;
-    }
-    .option-body { padding: 1.25rem 1.5rem; }
-    .option-body p { color: var(--muted); font-size: .87rem; line-height: 1.7; }
-    .option-card.active .option-header { background: rgba(61,220,132,.05); }
-    .active-badge {
-      margin-left: auto; font-family: var(--font-code); font-size: .68rem;
-      color: var(--accent); background: rgba(61,220,132,.1);
-      border: 1px solid rgba(61,220,132,.25);
-      padding: .2rem .6rem; border-radius: 3px;
-      white-space: nowrap;
-    }
+      /* ── Blocs de compétences ── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+        margin-top: 2.5rem;
+      }
+      .skill-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.4rem;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .skill-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+      .skill-icon {
+        font-size: 1.7rem;
+        margin-bottom: 0.7rem;
+      }
+      .skill-card h3 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 0.45rem;
+      }
+      .skill-card p {
+        color: var(--muted);
+        font-size: 0.83rem;
+        line-height: 1.65;
+      }
 
-    /* ── Blocs de compétences ── */
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem; margin-top: 2.5rem;
-    }
-    .skill-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.4rem;
-      transition: border-color .2s, transform .2s;
-    }
-    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .skill-icon { font-size: 1.7rem; margin-bottom: .7rem; }
-    .skill-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .45rem; }
-    .skill-card p { color: var(--muted); font-size: .83rem; line-height: 1.65; }
+      /* ── Débouchés ── */
+      .debouches-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+      .debouche-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.2rem 1.4rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+        transition: border-color 0.2s;
+      }
+      .debouche-card:hover {
+        border-color: var(--accent);
+      }
+      .debouche-card .dc-icon {
+        font-size: 1.4rem;
+        flex-shrink: 0;
+      }
+      .debouche-card h4 {
+        font-size: 0.88rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+      }
+      .debouche-card p {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
 
-    /* ── Débouchés ── */
-    .debouches-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem; margin-top: 2.5rem;
-    }
-    .debouche-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.2rem 1.4rem;
-      display: flex; align-items: flex-start; gap: .8rem;
-      transition: border-color .2s;
-    }
-    .debouche-card:hover { border-color: var(--accent); }
-    .debouche-card .dc-icon { font-size: 1.4rem; flex-shrink: 0; }
-    .debouche-card h4 { font-size: .88rem; font-weight: 700; margin-bottom: .2rem; }
-    .debouche-card p { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+      /* ── Organisation ── */
+      .orga-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.25rem;
+        margin-top: 2.5rem;
+      }
+      .orga-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.4rem;
+      }
+      .orga-card h4 {
+        font-family: var(--font-code);
+        font-size: 0.72rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.9rem;
+      }
+      .orga-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .orga-list li {
+        font-size: 0.85rem;
+        color: var(--muted);
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        line-height: 1.5;
+      }
+      .orga-list li::before {
+        content: "▸";
+        color: var(--accent);
+        flex-shrink: 0;
+        font-size: 0.7rem;
+      }
 
-    /* ── Organisation ── */
-    .orga-grid {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.25rem; margin-top: 2.5rem;
-    }
-    .orga-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.4rem;
-    }
-    .orga-card h4 {
-      font-family: var(--font-code); font-size: .72rem;
-      color: var(--accent); text-transform: uppercase;
-      letter-spacing: .1em; margin-bottom: .9rem;
-    }
-    .orga-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-    .orga-list li {
-      font-size: .85rem; color: var(--muted);
-      display: flex; align-items: baseline; gap: .6rem; line-height: 1.5;
-    }
-    .orga-list li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: .7rem; }
-
-    @media (max-width: 900px) {
-      .bts-hero-inner, .options-grid, .skills-grid,
-      .orga-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .bts-stats { grid-template-columns: 1fr 1fr; }
-      .debouches-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- ════════════════════════════════════════
+      @media (max-width: 900px) {
+        .bts-hero-inner,
+        .options-grid,
+        .skills-grid,
+        .orga-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 600px) {
+        .bts-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .debouches-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ════════════════════════════════════════
      NAVIGATION
      ════════════════════════════════════════ -->
-<nav>
-  <div class="inner">
-    <a href="index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
-    <ul class="nav-links">
-      <li><a href="presentation.html">Présentation</a></li>
-      <li><a href="bts-sio-sisr.html" class="active">BTS SIO SISR</a></li>
-      <li><a href="veille.html">Veille technologique</a></li>
-      <li class="nav-has-dropdown">
-        <button onclick="window.location='login.html?next=mes-projets.html'">Mes projets <span class="nav-arrow">▾</span></button>
-        <div class="nav-dropdown">
-          <a href="login.html?next=projets-patrimoine.html"><span class="dd-icon">🖥️</span><span><span class="dd-label">Gérer le patrimoine informatique</span><span class="dd-sub">Inventaire, maintenance, gestion du parc</span></span></a>
-          <a href="login.html?next=projets-incidents.html"><span class="dd-icon">🔧</span><span><span class="dd-label">Répondre aux incidents et aux demandes</span><span class="dd-sub">Assistance, support, évolutions</span></span></a>
-          <a href="login.html?next=projets-presence.html"><span class="dd-icon">🌐</span><span><span class="dd-label">Développer la présence en ligne</span><span class="dd-sub">Web, services en ligne, communication</span></span></a>
-          <a href="login.html?next=projets-mode-projet.html"><span class="dd-icon">📋</span><span><span class="dd-label">Travailler en mode projet</span><span class="dd-sub">Gestion de projet, planification, livrables</span></span></a>
-          <a href="login.html?next=projets-service.html"><span class="dd-icon">⚙️</span><span><span class="dd-label">Mettre à disposition un service informatique</span><span class="dd-sub">Déploiement, infrastructure, services</span></span></a>
-          <a href="login.html?next=projets-dev-pro.html"><span class="dd-icon">📈</span><span><span class="dd-label">Organiser son développement professionnel</span><span class="dd-sub">Formation, veille, certifications</span></span></a>
-        </div>
-      </li>
-      <li><a href="e6.html">Épreuve E6</a></li>
-    </ul>
-  </div>
-</nav>
+    <nav>
+      <div class="inner">
+        <a href="index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
+        <ul class="nav-links">
+          <li><a href="presentation.html">Présentation</a></li>
+          <li><a href="bts-sio-sisr.html" class="active">BTS SIO SISR</a></li>
+          <li><a href="veille.html">Veille technologique</a></li>
+          <li class="nav-has-dropdown">
+            <button
+              onclick="window.location = 'login.html?next=mes-projets.html'"
+            >
+              Mes projets <span class="nav-arrow">▾</span>
+            </button>
+            <div class="nav-dropdown">
+              <a href="login.html?next=projets-patrimoine.html"
+                ><span class="dd-icon">🖥️</span
+                ><span
+                  ><span class="dd-label">Gérer le patrimoine informatique</span
+                  ><span class="dd-sub"
+                    >Inventaire, maintenance, gestion du parc</span
+                  ></span
+                ></a
+              >
+              <a href="login.html?next=projets-incidents.html"
+                ><span class="dd-icon">🔧</span
+                ><span
+                  ><span class="dd-label"
+                    >Répondre aux incidents et aux demandes</span
+                  ><span class="dd-sub"
+                    >Assistance, support, évolutions</span
+                  ></span
+                ></a
+              >
+              <a href="login.html?next=projets-presence.html"
+                ><span class="dd-icon">🌐</span
+                ><span
+                  ><span class="dd-label">Développer la présence en ligne</span
+                  ><span class="dd-sub"
+                    >Web, services en ligne, communication</span
+                  ></span
+                ></a
+              >
+              <a href="login.html?next=projets-mode-projet.html"
+                ><span class="dd-icon">📋</span
+                ><span
+                  ><span class="dd-label">Travailler en mode projet</span
+                  ><span class="dd-sub"
+                    >Gestion de projet, planification, livrables</span
+                  ></span
+                ></a
+              >
+              <a href="login.html?next=projets-service.html"
+                ><span class="dd-icon">⚙️</span
+                ><span
+                  ><span class="dd-label"
+                    >Mettre à disposition un service informatique</span
+                  ><span class="dd-sub"
+                    >Déploiement, infrastructure, services</span
+                  ></span
+                ></a
+              >
+              <a href="login.html?next=projets-dev-pro.html"
+                ><span class="dd-icon">📈</span
+                ><span
+                  ><span class="dd-label"
+                    >Organiser son développement professionnel</span
+                  ><span class="dd-sub"
+                    >Formation, veille, certifications</span
+                  ></span
+                ></a
+              >
+            </div>
+          </li>
+          <li><a href="e6.html">Épreuve E6</a></li>
+        </ul>
+      </div>
+    </nav>
 
-<main>
-
-  <!-- ════════════════════════════════════════
+    <main>
+      <!-- ════════════════════════════════════════
        HERO
        ════════════════════════════════════════ -->
-  <section class="bts-hero">
-    <div class="container">
-      <div class="bts-hero-inner">
+      <section class="bts-hero">
+        <div class="container">
+          <div class="bts-hero-inner">
+            <div class="fade-in">
+              <div class="bts-badge">🏢 Alternance</div>
+              <h1>
+                BTS <span>Services Informatiques</span><br />aux Organisations
+              </h1>
+              <p>
+                Le BTS SIO est un diplôme de niveau Bac+2 qui forme des
+                techniciens capables de répondre aux besoins informatiques des
+                organisations. Il se décline en deux options selon le domaine de
+                spécialisation choisi.
+              </p>
+              <div class="tags" style="margin-top: 1.5rem">
+                <span class="tag">Bac+2</span>
+                <span class="tag">2 ans</span>
+                <span class="tag">Alternance possible</span>
+                <span class="tag">Éducation Nationale</span>
+              </div>
+            </div>
 
-        <div class="fade-in">
-          <div class="bts-badge">🏢 Alternance</div>
-          <h1>BTS <span>Services Informatiques</span><br>aux Organisations</h1>
-          <p>
-            Le BTS SIO est un diplôme de niveau Bac+2 qui forme des techniciens
-            capables de répondre aux besoins informatiques des organisations.
-            Il se décline en deux options selon le domaine de spécialisation choisi.
-          </p>
-          <div class="tags" style="margin-top:1.5rem">
-            <span class="tag">Bac+2</span>
-            <span class="tag">2 ans</span>
-            <span class="tag">Alternance possible</span>
-            <span class="tag">Éducation Nationale</span>
+            <div class="bts-stats fade-in" style="transition-delay: 0.12s">
+              <div class="stat-card">
+                <div class="stat-val">2</div>
+                <div class="stat-label">années de formation</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val">2</div>
+                <div class="stat-label">
+                  options disponibles<br />(SISR &amp; SLAM)
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val">6</div>
+                <div class="stat-label">
+                  blocs de compétences professionnelles
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val">E5</div>
+                <div class="stat-label">épreuve portfolio de compétences</div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="bts-stats fade-in" style="transition-delay:.12s">
-          <div class="stat-card">
-            <div class="stat-val">2</div>
-            <div class="stat-label">années de formation</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-val">2</div>
-            <div class="stat-label">options disponibles<br>(SISR &amp; SLAM)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-val">6</div>
-            <div class="stat-label">blocs de compétences professionnelles</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-val">E6</div>
-            <div class="stat-label">épreuve portfolio de compétences</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════
+      <!-- ════════════════════════════════════════
        LES DEUX OPTIONS
        ════════════════════════════════════════ -->
-  <section class="page-section">
-    <div class="container">
-      <div class="fade-in">
-        <div class="section-label">// 01 — Les options</div>
-        <h2 class="section-title">Deux voies de spécialisation</h2>
-        <div class="divider"></div>
-        <p class="section-sub">
-          Le BTS SIO se divise en deux options complémentaires, chacune orientée
-          vers un métier distinct de l'informatique en entreprise.
-        </p>
-      </div>
-
-      <div class="options-grid">
-
-        <!-- SISR -->
-        <div class="option-card active fade-in">
-          <div class="option-header">
-            <div class="option-icon">🖧</div>
-            <div>
-              <h3>Solutions d'Infrastructure,<br>Systèmes et Réseaux</h3>
-              <div class="option-code">Option SISR — ma formation</div>
-            </div>
-            <span class="active-badge">✦ Mon option</span>
-          </div>
-          <div class="option-body">
-            <p>
-              L'option SISR forme des techniciens spécialisés dans la gestion
-              et l'administration des infrastructures informatiques : serveurs,
-              réseaux, sécurité, virtualisation et supervision. Le technicien SISR
-              est le garant du bon fonctionnement du système d'information.
+      <section class="page-section">
+        <div class="container">
+          <div class="fade-in">
+            <div class="section-label">// 01 — Les options</div>
+            <h2 class="section-title">Deux voies de spécialisation</h2>
+            <div class="divider"></div>
+            <p class="section-sub">
+              Le BTS SIO se divise en deux options complémentaires, chacune
+              orientée vers un métier distinct de l'informatique en entreprise.
             </p>
-            <div class="tags">
-              <span class="tag">Réseaux</span>
-              <span class="tag">Systèmes</span>
-              <span class="tag">Sécurité</span>
-              <span class="tag">Virtualisation</span>
-              <span class="tag">Cloud</span>
+          </div>
+
+          <div class="options-grid">
+            <!-- SISR -->
+            <div class="option-card active fade-in">
+              <div class="option-header">
+                <div class="option-icon">🖧</div>
+                <div>
+                  <h3>Solutions d'Infrastructure,<br />Systèmes et Réseaux</h3>
+                  <div class="option-code">Option SISR — ma formation</div>
+                </div>
+                <span class="active-badge">✦ Mon option</span>
+              </div>
+              <div class="option-body">
+                <p>
+                  L'option SISR forme des techniciens spécialisés dans la
+                  gestion et l'administration des infrastructures informatiques
+                  : serveurs, réseaux, sécurité, virtualisation et supervision.
+                  Le technicien SISR est le garant du bon fonctionnement du
+                  système d'information.
+                </p>
+                <div class="tags">
+                  <span class="tag">Réseaux</span>
+                  <span class="tag">Systèmes</span>
+                  <span class="tag">Sécurité</span>
+                  <span class="tag">Virtualisation</span>
+                  <span class="tag">Cloud</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLAM -->
+            <div class="option-card fade-in" style="transition-delay: 0.08s">
+              <div class="option-header">
+                <div class="option-icon">💻</div>
+                <div>
+                  <h3>Solutions Logicielles<br />et Applications Métiers</h3>
+                  <div class="option-code">Option SLAM</div>
+                </div>
+              </div>
+              <div class="option-body">
+                <p>
+                  L'option SLAM forme des développeurs capables de concevoir,
+                  développer et maintenir des applications informatiques
+                  adaptées aux besoins des organisations. Elle couvre le
+                  développement web, mobile et les bases de données.
+                </p>
+                <div class="tags">
+                  <span class="tag">Développement</span>
+                  <span class="tag">Web</span>
+                  <span class="tag">Base de données</span>
+                  <span class="tag">API</span>
+                  <span class="tag">Mobile</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- SLAM -->
-        <div class="option-card fade-in" style="transition-delay:.08s">
-          <div class="option-header">
-            <div class="option-icon">💻</div>
-            <div>
-              <h3>Solutions Logicielles<br>et Applications Métiers</h3>
-              <div class="option-code">Option SLAM</div>
-            </div>
-          </div>
-          <div class="option-body">
-            <p>
-              L'option SLAM forme des développeurs capables de concevoir,
-              développer et maintenir des applications informatiques adaptées
-              aux besoins des organisations. Elle couvre le développement web,
-              mobile et les bases de données.
-            </p>
-            <div class="tags">
-              <span class="tag">Développement</span>
-              <span class="tag">Web</span>
-              <span class="tag">Base de données</span>
-              <span class="tag">API</span>
-              <span class="tag">Mobile</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════
+      <!-- ════════════════════════════════════════
        COMPÉTENCES SISR
        ════════════════════════════════════════ -->
-  <section class="page-section">
-    <div class="container">
-      <div class="fade-in">
-        <div class="section-label">// 02 — Compétences</div>
-        <h2 class="section-title">Ce que j'ai appris</h2>
-        <div class="divider"></div>
-        <p class="section-sub">
-          L'option SISR couvre un large spectre de compétences techniques,
-          de l'administration des systèmes à la sécurité des infrastructures.
-        </p>
-      </div>
+      <section class="page-section">
+        <div class="container">
+          <div class="fade-in">
+            <div class="section-label">// 02 — Compétences</div>
+            <h2 class="section-title">Ce que j'ai appris</h2>
+            <div class="divider"></div>
+            <p class="section-sub">
+              L'option SISR couvre un large spectre de compétences techniques,
+              de l'administration des systèmes à la sécurité des
+              infrastructures.
+            </p>
+          </div>
 
-      <div class="skills-grid">
+          <div class="skills-grid">
+            <div class="skill-card fade-in">
+              <div class="skill-icon">🖥️</div>
+              <h3>Administration système</h3>
+              <p>
+                Installation, configuration et maintenance de serveurs Linux
+                (Debian, Ubuntu) et Windows Server avec Active Directory, GPO et
+                gestion des utilisateurs.
+              </p>
+            </div>
 
-        <div class="skill-card fade-in">
-          <div class="skill-icon">🖥️</div>
-          <h3>Administration système</h3>
-          <p>Installation, configuration et maintenance de serveurs Linux (Debian, Ubuntu) et Windows Server avec Active Directory, GPO et gestion des utilisateurs.</p>
+            <div class="skill-card fade-in" style="transition-delay: 0.05s">
+              <div class="skill-icon">🌐</div>
+              <h3>Réseaux</h3>
+              <p>
+                Conception et administration de réseaux TCP/IP, segmentation
+                VLAN, routage statique et dynamique (OSPF, RIP), protocoles de
+                commutation.
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.1s">
+              <div class="skill-icon">🔒</div>
+              <h3>Cybersécurité</h3>
+              <p>
+                Mise en œuvre de politiques de sécurité, configuration de
+                pare-feu (pfSense), VPN OpenVPN, politique du moindre privilège…
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.15s">
+              <div class="skill-icon">⚙️</div>
+              <h3>Virtualisation</h3>
+              <p>
+                Déploiement et gestion de machines virtuelles avec VMware,
+                Proxmox et VirtualBox. Gestion des ressources, snapshots et
+                haute disponibilité.
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.2s">
+              <div class="skill-icon">📡</div>
+              <h3>Services réseau</h3>
+              <p>
+                Configuration de services DNS, DHCP, serveurs web Apache/Nginx,
+                messagerie, annuaires LDAP et gestion des certificats SSL/TLS.
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.25s">
+              <div class="skill-icon">📜</div>
+              <h3>Scripting</h3>
+              <p>
+                Automatisation des tâches d'administration avec des scripts Bash
+                sous Linux et PowerShell sous Windows pour optimiser les
+                opérations répétitives.
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.3s">
+              <div class="skill-icon">☁️</div>
+              <h3>Cloud &amp; Supervision</h3>
+              <p>
+                Initiation aux services cloud (IaaS, PaaS), supervision des
+                infrastructures avec Zabbix et Nagios, gestion des alertes et
+                tableaux de bord.
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.35s">
+              <div class="skill-icon">💾</div>
+              <h3>Sauvegarde &amp; PRA</h3>
+              <p>
+                Définition et mise en œuvre de plans de sauvegarde (stratégie
+                3-2-1), procédures de reprise d'activité après sinistre et tests
+                de restauration.
+              </p>
+            </div>
+
+            <div class="skill-card fade-in" style="transition-delay: 0.4s">
+              <div class="skill-icon">🗂️</div>
+              <h3>Gestion de parc</h3>
+              <p>
+                Inventaire et suivi du parc informatique, déploiement de postes
+                via MDT/WDS, gestion des tickets et incidents via GLPI,
+                documentation technique.
+              </p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="skill-card fade-in" style="transition-delay:.05s">
-          <div class="skill-icon">🌐</div>
-          <h3>Réseaux</h3>
-          <p>Conception et administration de réseaux TCP/IP, segmentation VLAN, routage statique et dynamique (OSPF, RIP), protocoles de commutation.</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.1s">
-          <div class="skill-icon">🔒</div>
-          <h3>Cybersécurité</h3>
-          <p>Mise en œuvre de politiques de sécurité, configuration de pare-feu (pfSense), VPN OpenVPN, politique du moindre privilège…</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.15s">
-          <div class="skill-icon">⚙️</div>
-          <h3>Virtualisation</h3>
-          <p>Déploiement et gestion de machines virtuelles avec VMware, Proxmox et VirtualBox. Gestion des ressources, snapshots et haute disponibilité.</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.2s">
-          <div class="skill-icon">📡</div>
-          <h3>Services réseau</h3>
-          <p>Configuration de services DNS, DHCP, serveurs web Apache/Nginx, messagerie, annuaires LDAP et gestion des certificats SSL/TLS.</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.25s">
-          <div class="skill-icon">📜</div>
-          <h3>Scripting</h3>
-          <p>Automatisation des tâches d'administration avec des scripts Bash sous Linux et PowerShell sous Windows pour optimiser les opérations répétitives.</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.3s">
-          <div class="skill-icon">☁️</div>
-          <h3>Cloud &amp; Supervision</h3>
-          <p>Initiation aux services cloud (IaaS, PaaS), supervision des infrastructures avec Zabbix et Nagios, gestion des alertes et tableaux de bord.</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.35s">
-          <div class="skill-icon">💾</div>
-          <h3>Sauvegarde &amp; PRA</h3>
-          <p>Définition et mise en œuvre de plans de sauvegarde (stratégie 3-2-1), procédures de reprise d'activité après sinistre et tests de restauration.</p>
-        </div>
-
-        <div class="skill-card fade-in" style="transition-delay:.4s">
-          <div class="skill-icon">🗂️</div>
-          <h3>Gestion de parc</h3>
-          <p>Inventaire et suivi du parc informatique, déploiement de postes via MDT/WDS, gestion des tickets et incidents via GLPI, documentation technique.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════
+      <!-- ════════════════════════════════════════
        ORGANISATION DE LA FORMATION
        ════════════════════════════════════════ -->
-  <section class="page-section">
-    <div class="container">
-      <div class="fade-in">
-        <div class="section-label">// 03 — Organisation</div>
-        <h2 class="section-title">Structure de la formation</h2>
-        <div class="divider"></div>
-        <p class="section-sub">
-          La formation combine enseignements théoriques, travaux pratiques
-          et une immersion en entreprise via le stage ou l'alternance.
-        </p>
-      </div>
+      <section class="page-section">
+        <div class="container">
+          <div class="fade-in">
+            <div class="section-label">// 03 — Organisation</div>
+            <h2 class="section-title">Structure de la formation</h2>
+            <div class="divider"></div>
+            <p class="section-sub">
+              La formation combine enseignements théoriques, travaux pratiques
+              et une immersion en entreprise via le stage ou l'alternance.
+            </p>
+          </div>
 
-      <div class="orga-grid">
+          <div class="orga-grid">
+            <div class="orga-card fade-in">
+              <h4>📘 Matières enseignées</h4>
+              <ul class="orga-list">
+                <li>Infrastructure et réseaux</li>
+                <li>Administration systèmes</li>
+                <li>Cybersécurité</li>
+                <li>Mathématiques pour l'informatique</li>
+                <li>Culture économique &amp; juridique</li>
+                <li>Expression &amp; communication</li>
+                <li>Anglais technique</li>
+              </ul>
+            </div>
 
-        <div class="orga-card fade-in">
-          <h4>📘 Matières enseignées</h4>
-          <ul class="orga-list">
-            <li>Infrastructure et réseaux</li>
-            <li>Administration systèmes</li>
-            <li>Cybersécurité</li>
-            <li>Mathématiques pour l'informatique</li>
-            <li>Culture économique &amp; juridique</li>
-            <li>Expression &amp; communication</li>
-            <li>Anglais technique</li>
-          </ul>
+            <div class="orga-card fade-in" style="transition-delay: 0.08s">
+              <h4>🏢 En entreprise</h4>
+              <ul class="orga-list">
+                <li>Stage de 6 semaines (1ʳᵉ année)</li>
+                <li>Stage de 6 semaines (2ᵉ année)</li>
+                <li>Ou alternance sur 2 ans</li>
+                <li>Missions professionnelles réelles</li>
+                <li>Rapport de stage / portfolio</li>
+                <li>Soutenance devant jury</li>
+              </ul>
+            </div>
+
+            <div class="orga-card fade-in" style="transition-delay: 0.16s">
+              <h4>🎓 Épreuves finales</h4>
+              <ul class="orga-list">
+                <li>E1 — Culture générale &amp; expression</li>
+                <li>E2 — Anglais</li>
+                <li>E3 — Mathématiques</li>
+                <li>E4 — Culture économique, juridique &amp; managériale</li>
+                <li>
+                  E5 — Support et mise à disposition de services informatiques
+                </li>
+                <li>E6 — Administration des systèmes et des réseaux</li>
+                <li>E7 — Cybersécurité des services informatiques</li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="orga-card fade-in" style="transition-delay:.08s">
-          <h4>🏢 En entreprise</h4>
-          <ul class="orga-list">
-            <li>Stage de 6 semaines (1ʳᵉ année)</li>
-            <li>Stage de 6 semaines (2ᵉ année)</li>
-            <li>Ou alternance sur 2 ans</li>
-            <li>Missions professionnelles réelles</li>
-            <li>Rapport de stage / portfolio</li>
-            <li>Soutenance devant jury</li>
-          </ul>
-        </div>
-
-        <div class="orga-card fade-in" style="transition-delay:.16s">
-          <h4>🎓 Épreuves finales</h4>
-          <ul class="orga-list">
-            <li>E1 — Culture générale &amp; expression</li>
-            <li>E2 — Anglais</li>
-            <li>E3 — Mathématiques</li>
-            <li>E4 — Culture économique, juridique &amp; managériale</li>
-            <li>E5 — Support et mise à disposition de services informatiques</li>
-            <li>E6 — Administration des systèmes et des réseaux</li>
-            <li>E7 — Cybersécurité des services informatiques</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════
+      <!-- ════════════════════════════════════════
        DÉBOUCHÉS
        ════════════════════════════════════════ -->
-  <section class="page-section">
-    <div class="container">
-      <div class="fade-in">
-        <div class="section-label">// 04 — Débouchés</div>
-        <h2 class="section-title">Après le BTS SIO SISR</h2>
-        <div class="divider"></div>
-        <p class="section-sub">
-          Le BTS SIO SISR ouvre la porte à de nombreux métiers de l'infrastructure
-          et de la sécurité informatique, ou à la poursuite d'études.
-        </p>
-      </div>
+      <section class="page-section">
+        <div class="container">
+          <div class="fade-in">
+            <div class="section-label">// 04 — Débouchés</div>
+            <h2 class="section-title">Après le BTS SIO SISR</h2>
+            <div class="divider"></div>
+            <p class="section-sub">
+              Le BTS SIO SISR ouvre la porte à de nombreux métiers de
+              l'infrastructure et de la sécurité informatique, ou à la poursuite
+              d'études.
+            </p>
+          </div>
 
-      <div class="debouches-grid">
+          <div class="debouches-grid">
+            <div class="debouche-card fade-in">
+              <div class="dc-icon">🖧</div>
+              <div>
+                <h4>Administrateur systèmes &amp; réseaux</h4>
+                <p>
+                  Gestion et maintenance de l'infrastructure SI d'une
+                  organisation.
+                </p>
+              </div>
+            </div>
 
-        <div class="debouche-card fade-in">
-          <div class="dc-icon">🖧</div>
-          <div>
-            <h4>Administrateur systèmes &amp; réseaux</h4>
-            <p>Gestion et maintenance de l'infrastructure SI d'une organisation.</p>
+            <div class="debouche-card fade-in" style="transition-delay: 0.15s">
+              <div class="dc-icon">🎓</div>
+              <div>
+                <h4>Poursuite d'études</h4>
+                <p>
+                  Bachelor, Licence Pro, BUT Réseaux &amp; Télécoms, école
+                  d'ingénieurs.
+                </p>
+              </div>
+            </div>
+
+            <div class="debouche-card fade-in" style="transition-delay: 0.2s">
+              <div class="dc-icon">🛠️</div>
+              <div>
+                <h4>Technicien support N2/N3</h4>
+                <p>
+                  Résolution d'incidents complexes et assistance aux
+                  utilisateurs.
+                </p>
+              </div>
+            </div>
+
+            <div class="debouche-card fade-in" style="transition-delay: 0.25s">
+              <div class="dc-icon">📡</div>
+              <div>
+                <h4>Intégrateur réseaux</h4>
+                <p>
+                  Déploiement et configuration d'équipements réseau en
+                  entreprise.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="debouche-card fade-in" style="transition-delay:.15s">
-          <div class="dc-icon">🎓</div>
-          <div>
-            <h4>Poursuite d'études</h4>
-            <p>Bachelor, Licence Pro, BUT Réseaux &amp; Télécoms, école d'ingénieurs.</p>
-          </div>
-        </div>
-
-        <div class="debouche-card fade-in" style="transition-delay:.2s">
-          <div class="dc-icon">🛠️</div>
-          <div>
-            <h4>Technicien support N2/N3</h4>
-            <p>Résolution d'incidents complexes et assistance aux utilisateurs.</p>
-          </div>
-        </div>
-
-        <div class="debouche-card fade-in" style="transition-delay:.25s">
-          <div class="dc-icon">📡</div>
-          <div>
-            <h4>Intégrateur réseaux</h4>
-            <p>Déploiement et configuration d'équipements réseau en entreprise.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ════════════════════════════════════════
+    <!-- ════════════════════════════════════════
      FOOTER
      ════════════════════════════════════════ -->
-<footer>
-  <p>© 2026 Hugo PROTTEAU · BTS SIO SISR</p>
-</footer>
+    <footer>
+      <p>© 2026 Hugo PROTTEAU · BTS SIO SISR</p>
+    </footer>
 
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
