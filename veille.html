@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veille technologique — Hugo PROTTEAU</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* ── Hero ── */
+    .veille-hero {
+      padding: 8rem 0 4.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Pourquoi la veille ── */
+    .page-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-section:last-child { border-bottom: none; }
+
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 2.5rem;
+    }
+    .why-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .why-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .why-card .wc-icon { font-size: 1.8rem; margin-bottom: .75rem; }
+    .why-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; }
+    .why-card p { color: var(--muted); font-size: .85rem; line-height: 1.65; }
+
+    /* ── Sources ── */
+    .sources-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .source-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .source-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+    .source-header {
+      padding: 1.5rem 1.5rem 1rem;
+      display: flex; align-items: center; gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .source-logo {
+      width: 42px; height: 42px; border-radius: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .source-header h3 { font-size: 1rem; font-weight: 700; }
+    .source-header .source-type {
+      font-family: var(--font-code); font-size: .68rem;
+      color: var(--amber); background: rgba(240,192,96,.1);
+      padding: .15rem .5rem; border-radius: 3px;
+      display: inline-block; margin-top: .2rem;
+    }
+
+    .source-body { padding: 1.25rem 1.5rem; }
+    .source-body p { color: var(--muted); font-size: .85rem; line-height: 1.7; }
+
+    .source-topics { padding: 0 1.5rem 1.5rem; }
+    .source-topics h4 {
+      font-family: var(--font-code); font-size: .68rem;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: .1em; margin-bottom: .6rem;
+    }
+
+    /* ── Thèmes de veille ── */
+    .themes-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem; margin-top: 2.5rem;
+    }
+    .theme-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem;
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      transition: border-color .2s;
+    }
+    .theme-card:hover { border-color: var(--accent); }
+    .theme-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .theme-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+    .theme-card p { color: var(--muted); font-size: .84rem; line-height: 1.65; }
+
+    /* ── Méthode ── */
+    .methode-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem; margin-top: 2.5rem;
+    }
+    .methode-step {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.4rem;
+      position: relative;
+    }
+    .methode-step .ms-num {
+      font-family: var(--font-code); font-size: .7rem;
+      color: var(--accent); background: rgba(61,220,132,.1);
+      border: 1px solid rgba(61,220,132,.25);
+      width: 2rem; height: 2rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: .85rem;
+    }
+    .methode-step h4 { font-size: .92rem; font-weight: 700; margin-bottom: .4rem; }
+    .methode-step p { color: var(--muted); font-size: .82rem; line-height: 1.6; }
+
+    @media (max-width: 900px) {
+      .why-grid, .sources-grid, .themes-grid { grid-template-columns: 1fr 1fr; }
+      .methode-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .why-grid, .sources-grid, .themes-grid,
+      .methode-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+     ════════════════════════════════════════ -->
+<nav>
+  <div class="inner">
+    <a href="index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
+    <ul class="nav-links">
+      <li><a href="presentation.html">Présentation</a></li>
+      <li><a href="bts-sio-sisr.html">BTS SIO SISR</a></li>
+      <li><a href="veille.html" class="active">Veille technologique</a></li>
+      <li class="nav-has-dropdown">
+        <button onclick="window.location='mes-projets.html'">Mes projets <span class="nav-arrow">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="projets-patrimoine.html"><span class="dd-icon">🖥️</span><span><span class="dd-label">Gérer le patrimoine informatique</span><span class="dd-sub">Inventaire, maintenance, gestion du parc</span></span></a>
+          <a href="projets-incidents.html"><span class="dd-icon">🔧</span><span><span class="dd-label">Répondre aux incidents et aux demandes</span><span class="dd-sub">Assistance, support, évolutions</span></span></a>
+          <a href="projets-presence.html"><span class="dd-icon">🌐</span><span><span class="dd-label">Développer la présence en ligne</span><span class="dd-sub">Web, services en ligne, communication</span></span></a>
+          <a href="projets-mode-projet.html"><span class="dd-icon">📋</span><span><span class="dd-label">Travailler en mode projet</span><span class="dd-sub">Gestion de projet, planification, livrables</span></span></a>
+          <a href="projets-service.html"><span class="dd-icon">⚙️</span><span><span class="dd-label">Mettre à disposition un service informatique</span><span class="dd-sub">Déploiement, infrastructure, services</span></span></a>
+          <a href="projets-dev-pro.html"><span class="dd-icon">📈</span><span><span class="dd-label">Organiser son développement professionnel</span><span class="dd-sub">Formation, veille, certifications</span></span></a>
+        </div>
+      </li>
+      <li><a href="e6.html">Épreuve E6</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════ -->
+  <div class="veille-hero">
+    <div class="container">
+      <div class="fade-in">
+        <div class="section-label">// Veille technologique</div>
+        <h1 class="section-title">Rester informé, progresser en continu</h1>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Le domaine de l'informatique évolue rapidement : nouvelles vulnérabilités,
+          mises à jour d'outils, bonnes pratiques en constante évolution.
+          Tout au long de ma formation, j'ai mis en place une démarche de veille
+          personnelle et continue, principalement axée sur la sécurité informatique
+          et les nouveautés réseau/système.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       POURQUOI LA VEILLE
+       ════════════════════════════════════════ -->
+  <section class="page-section">
+    <div class="container">
+      <div class="fade-in">
+        <div class="section-label">// 01 — Pourquoi ?</div>
+        <h2 class="section-title">L'importance de la veille</h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Pour un technicien SISR, la veille n'est pas optionnelle. C'est une compétence
+          professionnelle à part entière, au même titre que l'administration système ou la configuration réseau.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="wc-icon">🛡️</div>
+          <h3>Anticiper les risques</h3>
+          <p>De nouvelles vulnérabilités sont publiées chaque semaine. La veille sécurité permet d'identifier les menaces avant qu'elles n'impactent les systèmes gérés.</p>
+        </div>
+        <div class="why-card fade-in" style="transition-delay:.05s">
+          <div class="wc-icon">🔧</div>
+          <h3>Rester à jour sur les outils</h3>
+          <p>Les logiciels, protocoles et bonnes pratiques évoluent en permanence. Suivre ces évolutions permet d'utiliser les outils de façon optimale et sécurisée.</p>
+        </div>
+        <div class="why-card fade-in" style="transition-delay:.1s">
+          <div class="wc-icon">📈</div>
+          <h3>Progresser au-delà des cours</h3>
+          <p>La formation apporte les bases, mais la veille permet d'aller plus loin : découvrir de nouvelles technologies, apprendre de l'expérience des professionnels du secteur.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SOURCES
+       ════════════════════════════════════════ -->
+  <section class="page-section">
+    <div class="container">
+      <div class="fade-in">
+        <div class="section-label">// 02 — Sources</div>
+        <h2 class="section-title">Mes sources de veille</h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Trois sources complémentaires couvrent à la fois le format vidéo, les échanges communautaires
+          et la documentation technique francophone.
+        </p>
+      </div>
+
+      <div class="sources-grid">
+
+        <!-- YouTube -->
+        <div class="source-card fade-in">
+          <div class="source-header">
+            <div class="source-logo">▶️</div>
+            <div>
+              <h3>YouTube</h3>
+              <span class="source-type">Vidéo</span>
+            </div>
+          </div>
+          <div class="source-body">
+            <p>Suivi de chaînes spécialisées en informatique couvrant les nouvelles technologies, tutoriels pratiques et actualités du secteur IT. Le format vidéo permet une montée en compétences rapide sur des sujets techniques complexes.</p>
+          </div>
+          <div class="source-topics">
+            <h4>Sujets suivis</h4>
+            <div class="tags">
+              <span class="tag">Sécurité</span>
+              <span class="tag">Linux</span>
+              <span class="tag">Réseaux</span>
+              <span class="tag">Homelab</span>
+              <span class="tag">Virtualisation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reddit -->
+        <div class="source-card fade-in" style="transition-delay:.08s">
+          <div class="source-header">
+            <div class="source-logo">👾</div>
+            <div>
+              <h3>Reddit</h3>
+              <span class="source-type">Communauté</span>
+            </div>
+          </div>
+          <div class="source-body">
+            <p>Consultation régulière de communautés techniques pour suivre les retours d'expérience de professionnels, les alertes de sécurité en temps réel et les discussions sur les outils du marché.</p>
+          </div>
+          <div class="source-topics">
+            <h4>Communautés suivies</h4>
+            <div class="tags">
+              <span class="tag">r/sysadmin</span>
+              <span class="tag">r/homelab</span>
+              <span class="tag">r/netsec</span>
+              <span class="tag">r/networking</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- IT-Connect -->
+        <div class="source-card fade-in" style="transition-delay:.16s">
+          <div class="source-header">
+            <div class="source-logo">📰</div>
+            <div>
+              <h3>IT-Connect</h3>
+              <span class="source-type">Blog technique</span>
+            </div>
+          </div>
+          <div class="source-body">
+            <p>Blog de référence francophone pour les administrateurs système et réseau. Couvre des tutoriels détaillés, des actualités Microsoft, des alertes de sécurité et des guides de configuration.</p>
+          </div>
+          <div class="source-topics">
+            <h4>Sujets couverts</h4>
+            <div class="tags">
+              <span class="tag">Windows Server</span>
+              <span class="tag">Active Directory</span>
+              <span class="tag">Sécurité</span>
+              <span class="tag">Tutoriels</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       THÈMES DE VEILLE
+       ════════════════════════════════════════ -->
+  <section class="page-section">
+    <div class="container">
+      <div class="fade-in">
+        <div class="section-label">// 03 — Thèmes</div>
+        <h2 class="section-title">Domaines surveillés</h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Ma veille est principalement orientée vers les domaines directement liés à l'option SISR
+          et aux activités rencontrées en alternance.
+        </p>
+      </div>
+
+      <div class="themes-grid">
+        <div class="theme-card fade-in">
+          <div class="theme-icon">🔒</div>
+          <div>
+            <h3>Cybersécurité</h3>
+            <p>Suivi des CVE et vulnérabilités publiées, nouvelles techniques d'attaque, correctifs de sécurité à appliquer en priorité. Domaine en évolution permanente qui nécessite une vigilance continue.</p>
+          </div>
+        </div>
+        <div class="theme-card fade-in" style="transition-delay:.05s">
+          <div class="theme-icon">🖥️</div>
+          <div>
+            <h3>Systèmes & Administration</h3>
+            <p>Nouveautés Windows Server, Active Directory, mises à jour Linux, nouveaux outils d'administration. Suivi des évolutions des systèmes utilisés au quotidien en alternance.</p>
+          </div>
+        </div>
+        <div class="theme-card fade-in" style="transition-delay:.1s">
+          <div class="theme-icon">🌐</div>
+          <div>
+            <h3>Réseaux</h3>
+            <p>Évolutions des protocoles réseau, nouvelles versions d'équipements Cisco, actualités pfSense/OPNsense, bonnes pratiques de segmentation et de filtrage.</p>
+          </div>
+        </div>
+        <div class="theme-card fade-in" style="transition-delay:.15s">
+          <div class="theme-icon">⚙️</div>
+          <div>
+            <h3>Virtualisation & Cloud</h3>
+            <p>Mises à jour Proxmox, évolutions Hyper-V, tendances cloud (IaaS, PaaS), retours d'expérience de la communauté homelab sur les nouvelles configurations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       MÉTHODE
+       ════════════════════════════════════════ -->
+  <section class="page-section">
+    <div class="container">
+      <div class="fade-in">
+        <div class="section-label">// 04 — Méthode</div>
+        <h2 class="section-title">Ma démarche de veille</h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          La veille n'est efficace que si elle est régulière et structurée.
+          Voici la démarche que j'applique au quotidien.
+        </p>
+      </div>
+
+      <div class="methode-grid">
+        <div class="methode-step fade-in">
+          <div class="ms-num">1</div>
+          <h4>Consulter</h4>
+          <p>Lecture quotidienne des sources : fil Reddit, notifications YouTube, articles IT-Connect. Quelques minutes suffisent pour rester informé des dernières actualités.</p>
+        </div>
+        <div class="methode-step fade-in" style="transition-delay:.06s">
+          <div class="ms-num">2</div>
+          <h4>Filtrer</h4>
+          <p>Tri des informations pertinentes selon leur impact réel sur les technologies utilisées. Distinguer l'alerte critique de l'information intéressante mais non urgente.</p>
+        </div>
+        <div class="methode-step fade-in" style="transition-delay:.12s">
+          <div class="ms-num">3</div>
+          <h4>Approfondir</h4>
+          <p>Pour les sujets importants : lecture complète de l'article, visionnage de la vidéo associée, ou test en environnement virtuel pour comprendre concrètement.</p>
+        </div>
+        <div class="methode-step fade-in" style="transition-delay:.18s">
+          <div class="ms-num">4</div>
+          <h4>Appliquer</h4>
+          <p>Transposition des apprentissages dans la pratique : mise à jour d'un système, application d'un correctif, ou adoption d'une nouvelle bonne pratique en alternance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════ -->
+<footer>
+  <p>© 2025 Hugo PROTTEAU · BTS SIO SISR</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

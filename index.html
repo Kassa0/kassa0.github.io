@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hugo PROTTEAU — Portfolio BTS SIO SISR</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION GLOBALE
+     ════════════════════════════════════════ -->
+<nav>
+  <div class="inner">
+    <a href="index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
+    <ul class="nav-links">
+      <li><a href="presentation.html">Présentation</a></li>
+      <li><a href="bts-sio-sisr.html">BTS SIO SISR</a></li>
+      <li><a href="veille.html">Veille technologique</a></li>
+      <li class="nav-has-dropdown">
+        <button onclick="window.location='login.html?next=mes-projets.html'">Mes projets <span class="nav-arrow">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="login.html?next=projets-patrimoine.html"><span class="dd-icon">🖥️</span><span><span class="dd-label">Gérer le patrimoine informatique</span><span class="dd-sub">Inventaire, maintenance, gestion du parc</span></span></a>
+          <a href="login.html?next=projets-incidents.html"><span class="dd-icon">🔧</span><span><span class="dd-label">Répondre aux incidents et aux demandes</span><span class="dd-sub">Assistance, support, évolutions</span></span></a>
+          <a href="login.html?next=projets-presence.html"><span class="dd-icon">🌐</span><span><span class="dd-label">Développer la présence en ligne</span><span class="dd-sub">Web, services en ligne, communication</span></span></a>
+          <a href="login.html?next=projets-mode-projet.html"><span class="dd-icon">📋</span><span><span class="dd-label">Travailler en mode projet</span><span class="dd-sub">Gestion de projet, planification, livrables</span></span></a>
+          <a href="login.html?next=projets-service.html"><span class="dd-icon">⚙️</span><span><span class="dd-label">Mettre à disposition un service informatique</span><span class="dd-sub">Déploiement, infrastructure, services</span></span></a>
+          <a href="login.html?next=projets-dev-pro.html"><span class="dd-icon">📈</span><span><span class="dd-label">Organiser son développement professionnel</span><span class="dd-sub">Formation, veille, certifications</span></span></a>
+        </div>
+      </li>
+      <li><a href="login.html?next=e6.html">Épreuve E6</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════ -->
+<main>
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <div class="fade-in">
+        <div class="hero-tag">BTS SIO option SISR — Alternance</div>
+        <h1 class="hero-name">
+          Bonjour, je suis<br>
+          <span class="name">Hugo PROTTEAU</span>
+        </h1>
+        <p class="hero-bio">
+          Étudiant en BTS Services Informatiques aux Organisations,
+          option Solutions d'Infrastructure, Systèmes et Réseaux,
+          en alternance à la
+          <strong style="color:var(--text)">Communauté d'Agglomération Saumur Val de Loire</strong> (49).
+          Passionné par l'administration système, les réseaux et la cybersécurité.
+        </p>
+        <div class="hero-btns">
+          <a href="#contact-rapide" class="btn btn-primary">Me contacter</a>
+          <a href="presentation.html" class="btn btn-outline">Présentation</a>
+          <a href="cv.pdf" class="btn btn-ghost" target="_blank">Mon CV ↗</a>
+        </div>
+      </div>
+
+      <div class="terminal fade-in" style="transition-delay:.15s">
+        <div class="terminal-bar">
+          <div class="dot r"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+          <span class="terminal-title">hugo@sisr:~</span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-prompt">hugo@sisr</span>:<span class="t-cmd"> whoami</span></div>
+          <div class="t-out">Hugo PROTTEAU — BTS SIO SISR en alternance</div>
+          <br>
+          <div><span class="t-prompt">hugo@sisr</span>:<span class="t-cmd"> cat infos.txt</span></div>
+          <div class="t-out">▸ Alternance : Agglo Saumur Val de Loire (49)</div>
+          <div class="t-out">▸ Réseaux TCP/IP, VLAN, Routage</div>
+          <div class="t-out">▸ Administration Linux &amp; Windows Server</div>
+          <div class="t-out">▸ Virtualisation &amp; Cybersécurité</div>
+          <br>
+          <div><span class="t-prompt">hugo@sisr</span>:<span class="t-cmd"> echo $STATUS</span></div>
+          <div class="t-out">En alternance · Saumur (49) 🟢</div>
+          <br>
+          <div><span class="t-prompt">hugo@sisr</span>:<span class="t-cmd"> <span class="cursor"></span></span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CONTACT RAPIDE
+     ════════════════════════════════════════ -->
+<section id="contact-rapide">
+  <div class="container">
+
+    <div class="fade-in">
+      <div class="section-label">// Contact</div>
+      <h2 class="section-title">Me contacter</h2>
+      <div class="divider"></div>
+      <p class="section-sub">N'hésitez pas à me contacter pour toute opportunité ou échange autour de l'IT et des réseaux.</p>
+    </div>
+
+    <div class="contact-links" style="max-width:520px">
+
+          <a href="mailto:hprotteau@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div class="contact-link-info">
+              <div class="cl-label">Email</div>
+              <div class="cl-value">hprotteau@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/hugo-protteau/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">💼</div>
+            <div class="contact-link-info">
+              <div class="cl-label">LinkedIn</div>
+              <div class="cl-value">linkedin.com/in/hugo-protteau</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════ -->
+<footer>
+  <p>© 2025 Hugo PROTTEAU · BTS SIO SISR</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

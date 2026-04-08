@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Développer la présence en ligne — Hugo PROTTEAU</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hub-hero { padding: 8rem 0 4rem; border-bottom: 1px solid var(--border); }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-code); font-size: .78rem;
+      color: var(--muted); text-decoration: none;
+      margin-bottom: 1.75rem; transition: color .2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .hub-bloc-label {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-family: var(--font-code); font-size: .7rem;
+      color: var(--accent); background: rgba(61,220,132,.08);
+      border: 1px solid rgba(61,220,132,.2);
+      padding: .3rem .85rem; border-radius: 20px;
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .projects-section { padding: 4rem 0; }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      display: flex; flex-direction: column;
+      text-decoration: none; color: var(--text);
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      position: relative;
+    }
+    .project-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+    }
+    .project-card:hover {
+      border-color: var(--accent); transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(61,220,132,.07);
+    }
+    .project-card:hover::after { transform: scaleX(1); }
+    .pc-header {
+      padding: 1.5rem 1.5rem 0;
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+    .pc-icon { font-size: 2rem; }
+    .pc-ctx {
+      font-family: var(--font-code); font-size: .68rem;
+      color: var(--amber); background: rgba(240,192,96,.1);
+      padding: .2rem .55rem; border-radius: 3px;
+    }
+    .pc-body { padding: 1rem 1.5rem 1.5rem; flex: 1; }
+    .pc-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: .45rem; line-height: 1.3; }
+    .pc-body p { color: var(--muted); font-size: .83rem; line-height: 1.65; }
+    .pc-footer {
+      padding: .9rem 1.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .pc-footer .pc-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin: 0; }
+    .pc-footer .pc-arrow {
+      font-family: var(--font-code); font-size: .75rem;
+      color: var(--accent); opacity: 0; transition: opacity .2s;
+    }
+    .project-card:hover .pc-arrow { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
+    <ul class="nav-links">
+      <li><a href="presentation.html">Présentation</a></li>
+      <li><a href="bts-sio-sisr.html">BTS SIO SISR</a></li>
+      <li><a href="veille.html">Veille technologique</a></li>
+      <li class="nav-has-dropdown">
+        <button onclick="window.location='mes-projets.html'">Mes projets <span class="nav-arrow">▾</span></button>
+        <div class="nav-dropdown">
+          <a href="projets-patrimoine.html"><span class="dd-icon">🖥️</span><span><span class="dd-label">Gérer le patrimoine informatique</span><span class="dd-sub">Inventaire, maintenance, gestion du parc</span></span></a>
+          <a href="projets-incidents.html"><span class="dd-icon">🔧</span><span><span class="dd-label">Répondre aux incidents et aux demandes</span><span class="dd-sub">Assistance, support, évolutions</span></span></a>
+          <a href="projets-presence.html"><span class="dd-icon">🌐</span><span><span class="dd-label">Développer la présence en ligne</span><span class="dd-sub">Web, services en ligne, communication</span></span></a>
+          <a href="projets-mode-projet.html"><span class="dd-icon">📋</span><span><span class="dd-label">Travailler en mode projet</span><span class="dd-sub">Gestion de projet, planification, livrables</span></span></a>
+          <a href="projets-service.html"><span class="dd-icon">⚙️</span><span><span class="dd-label">Mettre à disposition un service informatique</span><span class="dd-sub">Déploiement, infrastructure, services</span></span></a>
+          <a href="projets-dev-pro.html"><span class="dd-icon">📈</span><span><span class="dd-label">Organiser son développement professionnel</span><span class="dd-sub">Formation, veille, certifications</span></span></a>
+        </div>
+      </li>
+      <li><a href="e6.html">Épreuve E6</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <div class="hub-hero">
+    <div class="container">
+      <div class="fade-in">
+        <a href="mes-projets.html" class="back-link">← Retour aux projets</a>
+        <div class="hub-bloc-label">🌐 Bloc 03</div>
+        <h1 class="section-title">Développer la présence en ligne de l'organisation</h1>
+        <div class="divider"></div>
+        <p class="section-sub">Valoriser l'image de l'organisation sur les médias numériques, référencer les services en ligne et participer à l'évolution des sites web.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="projects-section">
+    <div class="container">
+      <div class="projects-grid">
+
+        <a href="projet-portfolio.html" class="project-card fade-in">
+          <div class="pc-header">
+            <div class="pc-icon">🌐</div>
+            <span class="pc-ctx">Formation</span>
+          </div>
+          <div class="pc-body">
+            <h3>Création du portfolio HTML/CSS/JS</h3>
+            <p>Conception et développement de ce portfolio en HTML, CSS et JavaScript avec l'assistance de l'IA Claude.</p>
+          </div>
+          <div class="pc-footer">
+            <div class="pc-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">IA</span></div>
+            <span class="pc-arrow">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Hugo PROTTEAU · BTS SIO SISR</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
