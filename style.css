@@ -123,6 +123,7 @@ nav .inner {
   z-index: 300;
 }
 .nav-links > li.open .nav-dropdown { display: block; }
+.nav-links > li.nav-has-dropdown:hover .nav-dropdown { display: block; }
 
 .nav-dropdown a {
   display: flex; align-items: flex-start; gap: .75rem;
