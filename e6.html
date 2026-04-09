@@ -6,10 +6,10 @@
   <title>Épreuve E6 — Hugo PROTTEAU</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <script src="auth-guard.js"></script>
   <style>
 
-    /* ── Hero ── */
     .e6-hero {
       padding: 8rem 0 4.5rem;
       border-bottom: 1px solid var(--border);
@@ -31,7 +31,6 @@
     }
     .e6-section:last-child { border-bottom: none; }
 
-    /* ── Section header avec numéro ── */
     .section-header {
       display: flex; align-items: center; gap: 1.25rem;
       margin-bottom: 2.75rem;
@@ -52,92 +51,17 @@
       margin-top: .3rem; line-height: 1.5;
     }
 
-    /* ════════════════════════════════════
-       DOCUMENTS COMMUNS — 3 boxes
-       ════════════════════════════════════ */
+    /* ── Grille générique ── */
     .docs-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid;
       gap: 1.5rem;
     }
+    .docs-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .docs-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .docs-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 
-    .doc-box {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden;
-      text-decoration: none; color: var(--text);
-      display: flex; flex-direction: column;
-      transition: border-color .2s, transform .2s, box-shadow .2s;
-      cursor: pointer; position: relative;
-    }
-    .doc-box:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(61,220,132,.08);
-    }
-
-    /* Barre colorée en haut */
-    .doc-box-bar {
-      height: 3px;
-      background: var(--accent);
-    }
-    /* Box sans lien (contexte) */
-    .doc-box.no-link {
-      cursor: default;
-    }
-    .doc-box.no-link:hover {
-      transform: none;
-      box-shadow: none;
-      border-color: var(--border);
-    }
-
-    .doc-box-inner {
-      padding: 1.75rem;
-      display: flex; flex-direction: column;
-      gap: .75rem; flex: 1;
-    }
-
-    .doc-box-icon { font-size: 2rem; }
-
-    .doc-box-num {
-      font-family: var(--font-code); font-size: .68rem;
-      color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
-    }
-    .doc-box h3 {
-      font-size: 1rem; font-weight: 700; line-height: 1.35;
-    }
-    .doc-box p {
-      color: var(--muted); font-size: .83rem; line-height: 1.65; flex: 1;
-    }
-
-    .doc-box-footer {
-      padding: .9rem 1.75rem;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .doc-box-type {
-      font-family: var(--font-code); font-size: .7rem;
-      color: var(--amber); background: rgba(240,192,96,.1);
-      padding: .2rem .55rem; border-radius: 3px;
-    }
-    .doc-box-arrow {
-      font-family: var(--font-code); font-size: .78rem;
-      color: var(--accent); opacity: 0;
-      transition: opacity .2s, transform .2s;
-      transform: translateX(-4px);
-    }
-    .doc-box:hover .doc-box-arrow {
-      opacity: 1; transform: translateX(0);
-    }
-    .doc-box.no-link .doc-box-arrow { display: none; }
-
-    /* ════════════════════════════════════
-       SITUATIONS — blocs numérotés
-       ════════════════════════════════════ */
-    .blocs-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .bloc-card {
+    /* ── Card doc ── */
+    .doc-card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 10px; overflow: hidden;
       text-decoration: none; color: var(--text);
@@ -145,57 +69,59 @@
       transition: border-color .2s, transform .2s, box-shadow .2s;
       position: relative;
     }
-    .bloc-card::after {
+    .doc-card::after {
       content: '';
       position: absolute; bottom: 0; left: 0; right: 0;
       height: 2px; background: var(--accent);
       transform: scaleX(0); transform-origin: left;
       transition: transform .25s ease;
     }
-    .bloc-card:hover {
+    .doc-card:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
       box-shadow: 0 10px 30px rgba(61,220,132,.07);
     }
-    .bloc-card:hover::after { transform: scaleX(1); }
+    .doc-card:hover::after { transform: scaleX(1); }
 
-    .bloc-card-inner { padding: 1.5rem; flex: 1; }
+    /* Card désactivée (PDF manquant) */
+    .doc-card.disabled {
+      opacity: .55; cursor: not-allowed; pointer-events: none;
+    }
+    .doc-card.disabled:hover { transform: none; box-shadow: none; }
 
-    .bloc-num {
-      font-family: var(--font-code); font-size: .7rem;
-      color: var(--accent); background: rgba(61,220,132,.1);
-      border: 1px solid rgba(61,220,132,.2);
-      padding: .25rem .65rem; border-radius: 4px;
-      display: inline-block; margin-bottom: .85rem;
-      letter-spacing: .08em;
+    .doc-card-inner {
+      padding: 1.5rem; flex: 1;
+      display: flex; flex-direction: column; gap: .6rem;
+    }
+    .doc-card-icon { font-size: 1.8rem; }
+    .doc-card-num {
+      font-family: var(--font-code); font-size: .68rem;
+      color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
+    }
+    .doc-card h3 {
+      font-size: .95rem; font-weight: 700; line-height: 1.4; flex: 1;
     }
 
-    .bloc-card h3 {
-      font-size: .98rem; font-weight: 700;
-      line-height: 1.35; color: var(--muted);
-      font-style: italic;
-    }
-    /* Quand le titre sera renseigné, enlever l'italique */
-    .bloc-card h3.titled {
-      color: var(--text); font-style: normal;
-    }
-
-    .bloc-card-footer {
+    .doc-card-footer {
       padding: .85rem 1.5rem;
       border-top: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
     }
-    .bloc-pdf {
+    .doc-type {
       font-family: var(--font-code); font-size: .7rem;
-      color: var(--muted);
+      color: var(--amber); background: rgba(240,192,96,.1);
+      padding: .2rem .55rem; border-radius: 3px;
     }
-    .bloc-arrow {
+    .doc-type.missing {
+      color: var(--muted); background: rgba(90,122,104,.1);
+    }
+    .doc-arrow {
       font-family: var(--font-code); font-size: .75rem;
       color: var(--accent); opacity: 0;
       transition: opacity .2s, transform .2s;
       transform: translateX(-4px);
     }
-    .bloc-card:hover .bloc-arrow { opacity: 1; transform: translateX(0); }
+    .doc-card:hover .doc-arrow { opacity: 1; transform: translateX(0); }
 
     /* Situation label */
     .situation-label {
@@ -208,21 +134,19 @@
       text-transform: uppercase;
     }
 
-    @media (max-width: 768px) {
-      .docs-grid { grid-template-columns: 1fr; }
-      .blocs-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px) {
+      .docs-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+      .docs-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 480px) {
-      .blocs-grid { grid-template-columns: 1fr; }
+    @media (max-width: 560px) {
+      .docs-grid.cols-2,
+      .docs-grid.cols-3,
+      .docs-grid.cols-4 { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 </head>
 <body>
 
-<!-- ════════════════════════════════════════
-     NAVIGATION
-     ════════════════════════════════════════ -->
 <nav>
   <div class="inner">
     <a href="index.html" class="nav-logo"><span>~/</span>hugo.protteau</a>
@@ -248,85 +172,75 @@
 
 <main>
 
-  <!-- ════════════════════════════════════════
-       HERO
-       ════════════════════════════════════════ -->
+  <!-- HERO -->
   <div class="e6-hero">
     <div class="container">
       <div class="fade-in">
-        <div class="e6-badge">🎓 Session 2025</div>
+        <div class="e6-badge">🎓 Session 2026</div>
         <div class="section-label">// Épreuve E6</div>
         <h1 class="section-title">Cybersécurité des services informatiques</h1>
         <div class="divider"></div>
         <p class="section-sub">
           L'épreuve E6 évalue la capacité à protéger les éléments du système informatique,
-          à assurer la continuité des services et à répondre aux incidents de sécurité.
+          assurer la continuité des services et répondre aux incidents de sécurité.
           Elle se compose de deux situations professionnelles, chacune associée à des documents de travail.
         </p>
       </div>
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════
-       SECTION 1 — SOCLE COMMUN
-       ════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════
+       DOCUMENTS COMMUNS
+  ══════════════════════════════════════ -->
   <section class="e6-section">
     <div class="container">
-
       <div class="fade-in">
         <div class="section-header">
           <span class="section-num">Socle commun</span>
           <div class="section-header-text">
-            <h2>Pièces transversales</h2>
-            <p>Documents partagés entre les deux situations de l'épreuve.</p>
+            <h2>Documents communs</h2>
+            <p>Documents transversaux partagés entre les deux situations.</p>
           </div>
         </div>
       </div>
 
-      <div class="docs-grid">
+      <div class="docs-grid cols-3 fade-in">
 
-        <!-- Box 1 — Contexte (PDF) -->
-        <a href="contexte.pdf" target="_blank" class="doc-box fade-in">
-          <div class="doc-box-bar"></div>
-          <div class="doc-box-inner">
-            <div class="doc-box-icon">🏛️</div>
-            <div class="doc-box-num">Document 01</div>
-            <h3>Contexte</h3>
-            <p>Présentation de l'organisation, de son environnement et du cadre dans lequel s'inscrivent les deux situations professionnelles de l'épreuve.</p>
+        <!-- Contexte entreprise -->
+        <a href="pdf/0.contexteEntrepriseEuroPackPack.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">🏛️</div>
+            <div class="doc-card-num">Document 01</div>
+            <h3>Contexte global de l'entreprise &amp; mots de passe d'accès à l'infra</h3>
           </div>
-          <div class="doc-box-footer">
-            <span class="doc-box-type">PDF</span>
-            <span class="doc-box-arrow">Ouvrir →</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <!-- Box 2 — Annexe 10 (PDF) -->
-        <a href="annexe10-environnement-technologique.pdf" target="_blank" class="doc-box fade-in" style="transition-delay:.07s">
-          <div class="doc-box-bar"></div>
-          <div class="doc-box-inner">
-            <div class="doc-box-icon">📄</div>
-            <div class="doc-box-num">Annexe 10</div>
+        <!-- Annexe 10 — MANQUANT -->
+        <div class="doc-card disabled">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">📄</div>
+            <div class="doc-card-num">Annexe 10</div>
             <h3>Environnement technologique</h3>
-            <p>Description de l'infrastructure technique de l'organisation : équipements, logiciels, topologie réseau et systèmes en place.</p>
           </div>
-          <div class="doc-box-footer">
-            <span class="doc-box-type">PDF</span>
-            <span class="doc-box-arrow">Ouvrir →</span>
+          <div class="doc-card-footer">
+            <span class="doc-type missing">À venir</span>
           </div>
-        </a>
+        </div>
 
-        <!-- Box 3 — Mot de passe infra (PDF) -->
-        <a href="mot-de-passe-infra.pdf" target="_blank" class="doc-box fade-in" style="transition-delay:.14s">
-          <div class="doc-box-bar"></div>
-          <div class="doc-box-inner">
-            <div class="doc-box-icon">🔑</div>
-            <div class="doc-box-num">Annexe</div>
-            <h3>Mot de passe infrastructure</h3>
-            <p>Récapitulatif des accès et credentials nécessaires à la réalisation des situations professionnelles de l'épreuve.</p>
+        <!-- Accès infra -->
+        <a href="pdf/acces-infraE6.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">🔑</div>
+            <div class="doc-card-num">Accès</div>
+            <h3>Mots de passe d'accès à l'infrastructure</h3>
           </div>
-          <div class="doc-box-footer">
-            <span class="doc-box-type">PDF</span>
-            <span class="doc-box-arrow">Ouvrir →</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
@@ -334,77 +248,89 @@
     </div>
   </section>
 
-  <!-- ════════════════════════════════════════
-       SECTION 2 — SITUATION 1
-       ════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════
+       SITUATION 1
+  ══════════════════════════════════════ -->
   <section class="e6-section">
     <div class="container">
-
       <div class="fade-in">
         <div class="situation-label">Situation professionnelle 1</div>
         <div class="section-header">
           <span class="section-num">Situation 1</span>
           <div class="section-header-text">
             <h2>Mise en place Windows Server 2025</h2>
-            <p>5 blocs de compétences évalués — cliquez sur un bloc pour ouvrir le document associé.</p>
+            <p>Installation, configuration et déploiement d'un serveur Windows Server avec Active Directory.</p>
           </div>
         </div>
       </div>
 
-      <div class="blocs-grid">
+      <div class="docs-grid cols-2 fade-in" style="margin-bottom:1.5rem">
 
-        <a href="s1-bloc1.pdf" target="_blank" class="bloc-card fade-in">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 1</span>
-            <h3>Titre à compléter</h3>
+        <!-- Annexe S1 — MANQUANT -->
+        <div class="doc-card disabled">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">📋</div>
+            <div class="doc-card-num">Annexe S1</div>
+            <h3>Description de la situation</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type missing">À venir</span>
+          </div>
+        </div>
+
+        <!-- 1A — Installation Windows Server + AD -->
+        <a href="pdf/1.1-InstallationWindowsServerAD.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">🖥️</div>
+            <div class="doc-card-num">1A</div>
+            <h3>Concevoir une solution d'infrastructure réseau — Installation Windows Server &amp; AD</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <a href="s1-bloc2.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.05s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 2</span>
-            <h3>Titre à compléter</h3>
+      </div>
+
+      <div class="docs-grid cols-3 fade-in">
+
+        <!-- 1B — Doc technique -->
+        <a href="pdf/1.2-DocTechnique.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">🔧</div>
+            <div class="doc-card-num">1B</div>
+            <h3>Installer, tester et déployer une solution d'infrastructure réseau — Documentation technique</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <a href="s1-bloc3.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.1s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 3</span>
-            <h3>Titre à compléter</h3>
+        <!-- 1C — Doc utilisateur -->
+        <a href="pdf/1.3-DocUtilisateur.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">📖</div>
+            <div class="doc-card-num">1C</div>
+            <h3>Exploiter, dépanner et superviser une solution d'infrastructure réseau — Documentation utilisateur</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
-          </div>
-        </a>
-
-        <a href="s1-bloc4.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.15s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 4</span>
-            <h3>Titre à compléter</h3>
-          </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <a href="s1-bloc5.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.2s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 5</span>
-            <h3>Titre à compléter</h3>
+        <!-- 1D — Rapport de test -->
+        <a href="pdf/1.4.RapportTest.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">✅</div>
+            <div class="doc-card-num">1D</div>
+            <h3>Rapport de test — Validation de la solution déployée</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
@@ -412,77 +338,89 @@
     </div>
   </section>
 
-  <!-- ════════════════════════════════════════
-       SECTION 3 — SITUATION 2
-       ════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════
+       SITUATION 2
+  ══════════════════════════════════════ -->
   <section class="e6-section">
     <div class="container">
-
       <div class="fade-in">
         <div class="situation-label">Situation professionnelle 2</div>
         <div class="section-header">
           <span class="section-num">Situation 2</span>
           <div class="section-header-text">
             <h2>Mise en place d'une politique de sauvegarde quotidienne</h2>
-            <p>5 blocs de compétences évalués — cliquez sur un bloc pour ouvrir le document associé.</p>
+            <p>Conception, déploiement et documentation d'une solution de sauvegarde automatisée.</p>
           </div>
         </div>
       </div>
 
-      <div class="blocs-grid">
+      <div class="docs-grid cols-2 fade-in" style="margin-bottom:1.5rem">
 
-        <a href="s2-bloc1.pdf" target="_blank" class="bloc-card fade-in">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 1</span>
-            <h3>Titre à compléter</h3>
+        <!-- Annexe S2 — MANQUANT -->
+        <div class="doc-card disabled">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">📋</div>
+            <div class="doc-card-num">Annexe S2</div>
+            <h3>Description de la situation</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type missing">À venir</span>
+          </div>
+        </div>
+
+        <!-- 2A — Sauvegarde serveur -->
+        <a href="pdf/2.1-SauvegardeServeurPartageFichier.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">💾</div>
+            <div class="doc-card-num">2A</div>
+            <h3>Concevoir une solution d'infrastructure réseau — Sauvegarde serveur &amp; partage de fichiers</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <a href="s2-bloc2.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.05s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 2</span>
-            <h3>Titre à compléter</h3>
+      </div>
+
+      <div class="docs-grid cols-3 fade-in">
+
+        <!-- 2B — Doc technique -->
+        <a href="pdf/2.2-DocTechnique.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">🔧</div>
+            <div class="doc-card-num">2B</div>
+            <h3>Installer, tester et déployer une solution d'infrastructure réseau — Documentation technique</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <a href="s2-bloc3.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.1s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 3</span>
-            <h3>Titre à compléter</h3>
+        <!-- 2C — Doc utilisateur -->
+        <a href="pdf/2.3-DocUtilisateur.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">📖</div>
+            <div class="doc-card-num">2C</div>
+            <h3>Exploiter, dépanner et superviser une solution d'infrastructure réseau — Documentation utilisateur</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
-          </div>
-        </a>
-
-        <a href="s2-bloc4.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.15s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 4</span>
-            <h3>Titre à compléter</h3>
-          </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
-        <a href="s2-bloc5.pdf" target="_blank" class="bloc-card fade-in" style="transition-delay:.2s">
-          <div class="bloc-card-inner">
-            <span class="bloc-num">BLOC 5</span>
-            <h3>Titre à compléter</h3>
+        <!-- 2D — Rapport de test -->
+        <a href="pdf/2.4.RapportTest.pdf" target="_blank" class="doc-card">
+          <div class="doc-card-inner">
+            <div class="doc-card-icon">✅</div>
+            <div class="doc-card-num">2D</div>
+            <h3>Rapport de test — Validation de la solution de sauvegarde</h3>
           </div>
-          <div class="bloc-card-footer">
-            <span class="bloc-pdf">PDF</span>
-            <span class="bloc-arrow">→</span>
+          <div class="doc-card-footer">
+            <span class="doc-type">PDF</span>
+            <span class="doc-arrow">→</span>
           </div>
         </a>
 
@@ -492,9 +430,6 @@
 
 </main>
 
-<!-- ════════════════════════════════════════
-     FOOTER
-     ════════════════════════════════════════ -->
 <footer>
   <p>© 2026 Hugo PROTTEAU · BTS SIO SISR</p>
 </footer>
