@@ -124,6 +124,9 @@ nav .inner {
 }
 .nav-links > li.open .nav-dropdown { display: block; }
 .nav-links > li.nav-has-dropdown:hover .nav-dropdown { display: block; }
+.nav-dropdown { margin-top: 0; }
+.nav-links > li.nav-has-dropdown { padding-bottom: 8px; }
+.nav-links > li.nav-has-dropdown .nav-dropdown { top: calc(100% + 0px); margin-top: -8px; }
 
 .nav-dropdown a {
   display: flex; align-items: flex-start; gap: .75rem;
